@@ -2,7 +2,6 @@ pipeline {
   environment {
     registry = "saisriraviteja90/jenkins_pipelins"
     registryCredential = 'Docker_Id'
-    dockerImage = ''
   }
   agent any
   stages {
@@ -13,24 +12,17 @@ pipeline {
     }
     stage('Building image') {
       steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
+        sh 'docker build -t drupal:latest .
+       
+        sh 'docker tag drupal saisriraviteja90/drupal:$BUILD_NUMBER'
       }
     }
     stage('Deploy Image') {
       steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
+            withDockerRegistry([ credentialsId: "Docker_Id", url: "" ]) {
+              sh  'docker push saisriraviteja90/jenkintest:latest'
         }
       }
     }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
-  }
+    
 }
