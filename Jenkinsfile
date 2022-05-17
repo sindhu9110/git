@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Building image') {
       steps{
-        sh 'docker build -t drupal:latest .
+        sh 'docker build -t drupal:latest .'
        
         sh 'docker tag drupal saisriraviteja90/drupal:$BUILD_NUMBER'
       }
