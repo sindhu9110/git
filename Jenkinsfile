@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "saissriraviteja90/Ravi244"
+        registry = "sindhuri9966/Sindhu9966"
         registryCredential = 'Docker_Id'
     }
     agent any
@@ -8,22 +8,22 @@ pipeline {
         stage('Checkout') {
             steps {
                      // Get code from a GitHub repository
-                    git url:'https://github.com/Raviteja1775/git.git', branch: 'main',
+                    git url:'https://github.com/sindhu9110/git.git', branch: 'main',
                     credentialsId: 'Git'
             }
         }
         stage('Building image') {
             steps{
                 sh 'docker build -t jenkintest:latest .'
-                  sh 'docker tag jenkintest saissriraviteja90/jenkintest:latest'
-                sh 'docker tag jenkintest saissriraviteja90/jenkintest:$BUILD_NUMBER'
+                  sh 'docker tag jenkintest sindhuri9966/jenkintest:latest'
+                sh 'docker tag jenkintest sindhuri9966/jenkintest:$BUILD_NUMBER'
             }
         }
         stage('Deploy our image') {
             steps {
                 withDockerRegistry([ credentialsId: "Docker_Id", url: "" ]) {
-              sh  'docker push saissriraviteja90/jenkintest:latest'
-              sh  'docker push saissriraviteja90/jenkintest:$BUILD_NUMBER'
+              sh  'docker push sindhuri9966/jenkintest:latest'
+              sh  'docker push sindhuri9966/jenkintest:$BUILD_NUMBER'
                 }
             }
         }
