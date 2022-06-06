@@ -14,16 +14,16 @@ pipeline {
         }
         stage('Building image') {
             steps{
-                sh 'docker build -t jenkintest:latest .'
-                  sh 'docker tag jenkintest sindhuri9966/jenkintest:latest'
-                sh 'docker tag jenkintest sindhuri9966/jenkintest:$BUILD_NUMBER'
+                sh 'docker build -t jenkintest1:latest .'
+                  sh 'docker tag jenkintest1 sindhuri9966/jenkintest1:latest'
+                sh 'docker tag jenkintest1 sindhuri9966/jenkintest1:$BUILD_NUMBER'
             }
         }
         stage('Deploy our image') {
             steps {
                 withDockerRegistry([ credentialsId: "Docker_Id", url: "" ]) {
-              sh  'docker push sindhuri9966/jenkintest:latest'
-              sh  'docker push sindhuri9966/jenkintest:$BUILD_NUMBER'
+              sh  'docker push sindhuri9966/jenkintest1:latest'
+              sh  'docker push sindhuri9966/jenkintest1:$BUILD_NUMBER'
                 }
             }
         }
